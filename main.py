@@ -25,8 +25,14 @@ from context_store import ContextStore
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Vera AI Bot", version="1.0.0")
-
+@app.get("/")
+async def home():
+    return {
+        "message": "Merchant AI Assistant is running 🚀",
+        "health": "/v1/healthz",
+        "metadata": "/v1/metadata",
+        "docs": "/docs"
+    }
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -38,8 +44,7 @@ START_TIME = time.time()
 store = ContextStore()
 conv_manager = ConversationManager()
 
-TEAM_NAME = "VeRA-Elite"
-SUBMITTED_AT = "2026-05-03T00:00:00Z"
+TEAM_NAME = "NITIN_submission"
 
 
 # ─── Models ────────────────────────────────────────────────────────────────────
@@ -86,7 +91,7 @@ async def healthz_head():
 async def metadata():
     return {
         "team_name": TEAM_NAME,
-        "team_members": ["Karanpal Singh Ranawat"],
+        "team_members": ["NITIN"],
         "model": "openrouter/free (auto-selects best free model)",
         "approach": (
             "Trigger-kind routing → 4-context grounded composition via OpenRouter API. "
@@ -95,7 +100,7 @@ async def metadata():
             "Suppression keyed on trigger.suppression_key. "
             "Multi-turn conversation state with graceful exit logic."
         ),
-        "contact_email": "krapertus@gmail.com",
+        "contact_email": "contactnitinforwork@gmail.com",
         "version": "1.0.0",
         "submitted_at": SUBMITTED_AT,
     }
